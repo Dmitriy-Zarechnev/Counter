@@ -18,6 +18,7 @@ function App() {
         setCounter(minCount)
     }
 
+
     return (
         <div className={s.app}>
             <Counter counter={counter}
