@@ -1,0 +1,34 @@
+.counter {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 500px;
+    border: 5px solid #033b09;
+    border-radius: 10px;
+    padding: 40px;
+}
+
+.counter__display {
+    font-size: 70px;
+    color: #e7e764;
+    text-align: center;
+    padding: 50px;
+    border: 5px solid #033b09;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+.counter__btn_box {
+    display: flex;
+    flex-direction: row;
+    gap: 70px;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid #033b09;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.maxCount {
+    color: red;
+}
