@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import s from './App.module.css'
+import S from './App.module.css'
 import Counter from './components/counter/Counter'
 
 
@@ -18,9 +18,8 @@ function App() {
         setCounter(minCount)
     }
 
-
     return (
-        <div className={s.app}>
+        <div className={S.app}>
             <Counter counter={counter}
                      maxCount={maxCount}
                      minCount={minCount}

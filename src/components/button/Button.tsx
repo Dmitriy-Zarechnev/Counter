@@ -1,5 +1,5 @@
 import React from 'react'
-import s from './Button.module.css'
+import S from './Button.module.css'
 
 type ButtonPropsType = {
     name: string
@@ -11,7 +11,7 @@ const Button = (props: ButtonPropsType) => {
     return (
         <button
             disabled={props.disabled}
-            className={s.button}
+            className={S.button}
             onClick={props.onClick}
         >{props.name}
         </button>

@@ -1,3 +1,5 @@
+@import 'ColorVar.module.css';
+
 *,
 *::before,
 *::after {
@@ -15,29 +17,20 @@
 
 
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: black;
-}
-
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    background-color: var(--main-bg);
 }
 
 
 button {
     cursor: pointer;
-
 }
 
 button:not(:disabled):active {
     background-color: transparent;
-    color: #033b09;
+    color: var(--primary-border);
 }
 
 button:disabled {
