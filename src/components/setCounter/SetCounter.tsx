@@ -2,6 +2,7 @@ import React from 'react'
 import S from '../counter/Counter.module.css'
 import Button from '../button/Button'
 import {Input} from '../input/Input'
+import {ErrorType} from '../../App'
 
 type SetCounterPropsType = {
     onInputFocus: boolean
@@ -11,31 +12,33 @@ type SetCounterPropsType = {
     onChangeInputMinCount: (value: number) => void
     onFocusInputChange: () => void
     setValuesIntoLocal: () => void
-    error: boolean
+    error: ErrorType
     }
 
 export const SetCounter = (props: SetCounterPropsType) => {
+    const isCounterError = Object.values(props.error).some(error => error);
+
     return (
         <section className={S.counter}>
             <span className={`${S.counter__display} ${S.counter__inputs}`}>
                 <Input title={'max value'}
                        value={props.maxCount}
                        onChange={props.onChangeInputMaxCount}
-                       error={props.error}
+                       error={props.error.maxValueError}
                        onFocusInputChange={props.onFocusInputChange}
                 />
 
                 <Input title={'start value'}
                        value={props.minCount}
                        onChange={props.onChangeInputMinCount}
-                       error={props.error}
+                       error={props.error.minValueError}
                        onFocusInputChange={props.onFocusInputChange}
                 />
             </span>
 
             <div className={S.counter__btn_box}>
                 <Button name={'SET'}
-                        disabled={!props.onInputFocus || props.error}
+                        disabled={!props.onInputFocus || isCounterError}
                         onClick={props.setValuesIntoLocal}
                 />
             </div>

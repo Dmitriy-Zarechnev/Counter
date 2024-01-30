@@ -3,12 +3,22 @@ import S from './App.module.css'
 import Counter from './components/counter/Counter'
 import {SetCounter} from './components/setCounter/SetCounter'
 
+
+export type ErrorType = {
+    maxValueError: boolean
+    minValueError: boolean
+}
+
 function App() {
     // ------------ Default values ---------------
     const maxCountDefault = 5
     const minCountDefault = 0
     const counterStep = 1
 
+    const ErrorDefault = {
+        maxValueError: false,
+        minValueError: false
+    }
     //  ----- Keys for LocalStorage -----------
     const COUNTER_VALUE = 'counterValue'
     const MAX_COUNTER_VALUE = 'maxCounterValue'
@@ -20,7 +30,7 @@ function App() {
     const [minCount, setMinCount] = useState<number>(minCountDefault)
 
     const [onInputFocus, setOnInputFocus] = useState<boolean>(false)
-    const [error, setError] = useState<boolean>(false)
+    const [error, setError] = useState<ErrorType>(ErrorDefault)
 
 
     //  ------ Get 'counter values' from localStorage ------
@@ -44,11 +54,12 @@ function App() {
         setItemToLocalStorage(MAX_COUNTER_VALUE, maxCount)
         setItemToLocalStorage(MIN_COUNTER_VALUE, minCount)
 
-        if (maxCount - minCount <= 0 || maxCount < 0 || minCount < 0) {
-            setError(true)
-        } else {
-            setError(false)
-        }
+        setError(prevState => ({
+            ...prevState,
+            maxValueError: maxCount < 0 || maxCount - minCount <= 0,
+            minValueError: minCount < 0 || maxCount - minCount <= 0 || minCount < 0
+        }))
+
     }, [maxCount, minCount])
 
     function setItemToLocalStorage(key: string, value: number) {
