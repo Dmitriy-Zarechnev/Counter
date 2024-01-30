@@ -1,7 +1,15 @@
 
-:root{
-    --main-bg:black;
-    --main-text:#e7e764;
-    --primary-border:#033b09;
-    --limi-color:red;
+:root {
+    --main-bg: #fffbf3;
+    --secondary-bg: #1b1507;
+    --main-text: #fffb61;
+    --primary-border: #19530d;
+    --secondary-border:#4ba300;
+    --limit-color: red;
 }
+
+.color1 {color: #1b1507;}
+.color2 {color: #19530d;}
+.color3 {color: #4ba300;}
+.color4 {color: #fffb61;}
+.color5 {color: #fffbf3;}
