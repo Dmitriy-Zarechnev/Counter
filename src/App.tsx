@@ -3,9 +3,6 @@ import S from './App.module.css'
 import Counter from './components/counter/Counter'
 import {SetCounter} from './components/setCounter/SetCounter'
 
-
-type ErrorType = 'one' | 'two'
-
 function App() {
     // ------------ Default values ---------------
     const maxCountDefault = 5
@@ -48,20 +45,11 @@ function App() {
         setItemToLocalStorage(MIN_COUNTER_VALUE, minCount)
 
         if (maxCount - minCount <= 0 || maxCount < 0 || minCount < 0) {
-            setErrorValue()
+            setError(true)
         } else {
-            unSetErrorValue()
+            setError(false)
         }
     }, [maxCount, minCount])
-
-
-    function setErrorValue() {
-        setError(true)
-    }
-
-    function unSetErrorValue() {
-        setError(false)
-    }
 
     function setItemToLocalStorage(key: string, value: number) {
         localStorage.setItem(key, JSON.stringify(value))
