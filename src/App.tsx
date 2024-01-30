@@ -73,7 +73,6 @@ function App() {
     }
 
     //  ------  Set 'error' into useState ------
-
     function setErrorValue() {
         setError(true)
     }
