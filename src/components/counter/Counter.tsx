@@ -2,7 +2,6 @@ import React from 'react'
 import Button from '../button/Button'
 import S from './Counter.module.css'
 
-
 type CounterPropsType = {
     counter: number
     maxCount: number
