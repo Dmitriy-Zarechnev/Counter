@@ -19,11 +19,17 @@ const Counter = (props: CounterPropsType) => {
                                ${props.counter === props.maxCount ? S.maxCount : ''}
                                ${props.error && S.error}
                                `
+    const textValue =
+        props.error
+            ? 'Incorrect value🤬'
+            : props.onInputFocus
+                ? 'enter values and press \'SET\''
+                : props.counter
 
     return (
         <section className={S.counter}>
             <span className={textStyles}>
-                {props.error ? 'Incorrect value🤬' : props.onInputFocus ? 'enter values and press \'SET\'' : props.counter}
+                {textValue}
             </span>
 
             <div className={S.counter__btn_box}>

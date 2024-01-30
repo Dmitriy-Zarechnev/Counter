@@ -4,36 +4,73 @@ import Counter from './components/counter/Counter'
 import {SetCounter} from './components/setCounter/SetCounter'
 
 
+type ErrorType = 'one' | 'two'
+
 function App() {
-    // const maxCountDef = 5
-    // const minCountDef = 0
+    // ------------ Default values ---------------
+    const maxCountDefault = 5
+    const minCountDefault = 0
     const counterStep = 1
 
+    //  ----- Keys for LocalStorage -----------
+    const COUNTER_VALUE = 'counterValue'
+    const MAX_COUNTER_VALUE = 'maxCounterValue'
+    const MIN_COUNTER_VALUE = 'minCounterValue'
 
-    const [counter, setCounter] = useState<number>(0)
-    const [maxCount, setMaxCount] = useState<number>(5)
-    const [minCount, setMinCount] = useState<number>(0)
+    // ----------- useStates ----------------
+    const [counter, setCounter] = useState<number>(minCountDefault)
+    const [maxCount, setMaxCount] = useState<number>(maxCountDefault)
+    const [minCount, setMinCount] = useState<number>(minCountDefault)
 
     const [onInputFocus, setOnInputFocus] = useState<boolean>(false)
     const [error, setError] = useState<boolean>(false)
 
-    let difference = maxCount - minCount
 
-
-    //  ------ Set 'counter', 'maxValueString' , 'minValueString' value into localStorage ------
+    //  ------ Get 'counter values' from localStorage ------
     useEffect(() => {
-        let valueString = localStorage.getItem('counterValue')
-        let maxValueString = localStorage.getItem('MaxCounterValue')
-        let minValueString = localStorage.getItem('MinCounterValue')
+        let counterValueString = localStorage.getItem(COUNTER_VALUE)
+        let maxValueString = localStorage.getItem(MAX_COUNTER_VALUE)
+        let minValueString = localStorage.getItem(MIN_COUNTER_VALUE)
 
-        if (valueString) setCounter(JSON.parse(valueString))
+        if (counterValueString) setCounter(JSON.parse(counterValueString))
         if (maxValueString) setMaxCount(JSON.parse(maxValueString))
         if (minValueString) setMinCount(JSON.parse(minValueString))
     }, [])
 
+
+    //  ------  Set 'counter values' into localStorage ------
     useEffect(() => {
-        localStorage.setItem('counterValue', JSON.stringify(counter))
+        setItemToLocalStorage(COUNTER_VALUE, counter)
     }, [counter])
+
+    useEffect(() => {
+        setItemToLocalStorage(MAX_COUNTER_VALUE, maxCount)
+        setItemToLocalStorage(MIN_COUNTER_VALUE, minCount)
+
+        if (maxCount - minCount <= 0 || maxCount < 0 || minCount < 0) {
+            setErrorValue()
+        } else {
+            unSetErrorValue()
+        }
+    }, [maxCount, minCount])
+
+
+    function setErrorValue() {
+        setError(true)
+    }
+
+    function unSetErrorValue() {
+        setError(false)
+    }
+
+    function setItemToLocalStorage(key: string, value: number) {
+        localStorage.setItem(key, JSON.stringify(value))
+    }
+
+    function setValuesIntoLocal() {
+        setOnInputFocus(false)
+        setCounter(minCount)
+    }
 
 
     //  ------ Change and Set 'counter' value into useState ------
@@ -45,8 +82,8 @@ function App() {
         setCounter(minCount)
     }
 
-    //  ------  Set input 'value' into useState ------
 
+    //  ------  Set input 'value' into useState ------
     function onChangeInputMaxCount(value: number) {
         setMaxCount(value)
     }
@@ -55,31 +92,12 @@ function App() {
         setMinCount(value)
     }
 
-    //  ------  Set input 'value' into useState ------
+
+    //  ------  Set OnInputFocus 'value' into useState ------
     function onFocusInputChange() {
         setOnInputFocus(true)
     }
 
-    //  ------  Set input 'value' into useState ------
-    useEffect(() => {
-        localStorage.setItem('MaxCounterValue', JSON.stringify(maxCount))
-        localStorage.setItem('MinCounterValue', JSON.stringify(minCount))
-    }, [onInputFocus])
-
-
-    function setValuesIntoLocal() {
-        setOnInputFocus(false)
-        setCounter(minCount)
-    }
-
-    //  ------  Set 'error' into useState ------
-    function setErrorValue() {
-        setError(true)
-    }
-
-    function unSetErrorValue() {
-        setError(false)
-    }
 
     return (
         <div className={S.app}>
@@ -92,9 +110,6 @@ function App() {
                 onFocusInputChange={onFocusInputChange}
                 setValuesIntoLocal={setValuesIntoLocal}
                 error={error}
-                setErrorValue={setErrorValue}
-                unSetErrorValue={unSetErrorValue}
-                difference={difference}
             />
 
             <Counter counter={counter}

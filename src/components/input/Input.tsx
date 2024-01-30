@@ -7,26 +7,16 @@ type InputPropsType = {
     onChange: (value: number) => void
     error: boolean
     onFocusInputChange: () => void
-    setErrorValue: () => void
-    unSetErrorValue: () => void
-    difference: number
 }
 
 export const Input = (props: InputPropsType) => {
 
     const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const newValue = +e.currentTarget.value
-        props.onChange(newValue)
+        let newValue = e.currentTarget.value
 
-        if (newValue < 0 || props.difference < 0) {
-            props.setErrorValue()
-        } else {
-            props.unSetErrorValue()
-        }
-    }
+        // Deleted '0' at the beginning of input value
+        props.onChange(parseInt(newValue, 10))
 
-    const onFocusInputHandler = () => {
-        props.onFocusInputChange()
     }
 
     return (
@@ -37,7 +27,7 @@ export const Input = (props: InputPropsType) => {
                 value={props.value}
                 type={'number'}
                 className={`${S.input} ${props.error && S.error}`}
-                onFocus={onFocusInputHandler}
+                onFocus={props.onFocusInputChange}
             />
         </div>
     )
