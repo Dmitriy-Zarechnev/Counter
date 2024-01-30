@@ -8,22 +8,31 @@ type CounterPropsType = {
     minCount: number
     changeCounter: () => void
     resetCounter: () => void
+    onInputFocus: boolean
+    error: boolean
 }
 
 const Counter = (props: CounterPropsType) => {
+
+    const textStyles = `${S.counter__display} 
+                               ${props.onInputFocus && S.onInputFocus}
+                               ${props.counter === props.maxCount ? S.maxCount : ''}
+                               ${props.error && S.error}
+                               `
+
     return (
         <section className={S.counter}>
-            <span className={`${S.counter__display} ${props.counter === props.maxCount ? S.maxCount : ''}`}>
-                {props.counter}
+            <span className={textStyles}>
+                {props.error ? 'Incorrect value🤬' : props.onInputFocus ? 'enter values and press \'SET\'' : props.counter}
             </span>
 
             <div className={S.counter__btn_box}>
-                <Button name={'inc'}
-                        disabled={props.counter === props.maxCount}
+                <Button name={'INC'}
+                        disabled={props.counter === props.maxCount || props.onInputFocus || props.error}
                         onClick={props.changeCounter}
                 />
-                <Button name={'reset'}
-                        disabled={props.counter === props.minCount}
+                <Button name={'RESET'}
+                        disabled={props.counter === props.minCount || props.onInputFocus || props.error}
                         onClick={props.resetCounter}/>
             </div>
         </section>
