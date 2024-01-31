@@ -7,6 +7,7 @@ type InputPropsType = {
     onChange: (value: number) => void
     error: boolean
     onFocusInputChange: () => void
+    setValuesIntoLocal: () => void
 }
 
 export const Input = (props: InputPropsType) => {
@@ -16,8 +17,8 @@ export const Input = (props: InputPropsType) => {
 
         // Deleted '0' at the beginning of input value
         props.onChange(parseInt(newValue, 10))
-
     }
+
 
     return (
         <div className={S.input_box}>
@@ -28,6 +29,7 @@ export const Input = (props: InputPropsType) => {
                 type={'number'}
                 className={`${S.input} ${props.error && S.error}`}
                 onFocus={props.onFocusInputChange}
+                onBlur={props.setValuesIntoLocal}
             />
         </div>
     )
